@@ -1,5 +1,7 @@
 package com.lambdaschool.dogsinitial
 
+import com.lambdaschool.dogsinitial.model.Dog
+
 class DogList {
 
     val dogList : MutableList<Dog> = mutableListOf<Dog>()
@@ -13,7 +15,7 @@ class DogList {
     }
 
     fun findDog(tester: CheckDog): Dog? {
-        for (d in dogList) {
+        for (d: Dog in dogList) {
             if (tester.test(d)) {
                 return d
             }
@@ -22,9 +24,9 @@ class DogList {
     }
 
     fun findDogs(tester: CheckDog): List<Dog> {
-        val tempDogList = mutableListOf<Dog>()
+        val tempDogList: MutableList<Dog> = mutableListOf<Dog>()
 
-        for (d in dogList) {
+        for (d: Dog in dogList) {
             if (tester.test(d)) {
                 tempDogList.add(d)
             }
