@@ -14,6 +14,7 @@ import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.NoHandlerFoundException
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import java.util.*
+import javax.print.URIException
 import javax.servlet.http.HttpServletRequest
 
 @ControllerAdvice
@@ -30,10 +31,23 @@ class RestExceptionHandler : ResponseEntityExceptionHandler()
         errorDetail.status = HttpStatus.NOT_FOUND.value()
         errorDetail.title = "Resource Not Found"
         errorDetail.detail = rnfe.message
-        errorDetail.developerMessage = rnfe.javaClass.getName()
+        errorDetail.developerMessage = rnfe.javaClass.name
 
         return ResponseEntity<Any>(errorDetail, null, HttpStatus.NOT_FOUND)
     }
+
+/*    @ExceptionHandler(URIException::class)
+    fun handleUriException(urie: URIException, request: HttpServletRequest): ResponseEntity<*>
+    {
+        val errorDetail = ErrorDetail()
+        errorDetail.setTimestamp(Date().time)
+        errorDetail.status = HttpStatus.NOT_FOUND.value()
+        errorDetail.title = "URI Exception"
+        errorDetail.detail = urie.message
+        errorDetail.developerMessage = urie.javaClass.name
+
+        return ResponseEntity<Any>(errorDetail, null, HttpStatus.NOT_FOUND)
+    }*/
 
     override fun handleTypeMismatch(ex: TypeMismatchException, headers: HttpHeaders, status: HttpStatus, request: WebRequest): ResponseEntity<Any>
     {
